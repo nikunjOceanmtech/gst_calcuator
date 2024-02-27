@@ -21,9 +21,9 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
   PreferredSizeWidget appBarView({required BuildContext context}) {
     return AppBar(
       backgroundColor: AppConstatnt.whiteBackGroundColor,
-      leading: Icon(
-        Icons.arrow_back_ios_new_rounded,
-        size: 25.h,
+      leading: IconButton(
+        onPressed: () => Navigator.of(context).pop(),
+        icon: Icon(Icons.arrow_back_ios_new_rounded, size: 25.h),
       ),
       title: CommonWidget.commonText(text: 'GST Cal'),
       actions: [

@@ -91,12 +91,15 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                CommonWidget.commonText(text: 'Tax Slab'),
-                const Spacer(),
-                Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
-              ],
+            InkWell(
+              onTap: () => Navigator.of(context).pushNamed('/tax_slab_screen'),
+              child: Row(
+                children: [
+                  CommonWidget.commonText(text: 'Tax Slab'),
+                  const Spacer(),
+                  Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
+                ],
+              ),
             ),
           ],
         ),
