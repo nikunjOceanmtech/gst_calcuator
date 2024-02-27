@@ -15,7 +15,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         body: Center(
           child: ElevatedButton(
             onPressed: () => Navigator.of(context).pushNamed('/gst_cal'),
-            child: Text("Gst Cal"),
+            child: const Text("Gst Cal"),
           ),
         ),
       ),

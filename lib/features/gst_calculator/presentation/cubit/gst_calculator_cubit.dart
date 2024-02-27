@@ -61,7 +61,7 @@ class GstCalculatorCubit extends Cubit<double> {
           var finalValue = expression.evaluate(EvaluationType.REAL, cm);
           output = formatNumber(finalValue.toString());
           input = formatNumber(userInput);
-          List<DataHistoryModel> l1 = listOfHistory;
+          List l1 = listOfHistory;
           l1.add(
             DataHistoryModel(
               inputValue: input,

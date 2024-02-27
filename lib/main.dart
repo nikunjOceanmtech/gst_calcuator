@@ -19,8 +19,10 @@ Future<void> main() async {
     (dir) async {
       Hive.init(dir.path);
 
+      Hive.registerAdapter<DataHistoryModel>(DataHistoryModelAdapter());
+
       gstHistoryBox = await Hive.openBox(HiveBoxConstants.GST_BOX);
-      listOfHistory = await gstHistoryBox.get(HiveConstants.GST_HISTORY, defaultValue: <DataHistoryModel>[]);
+      listOfHistory = await gstHistoryBox.get(HiveConstants.GST_HISTORY, defaultValue: []);
     },
   );
 
