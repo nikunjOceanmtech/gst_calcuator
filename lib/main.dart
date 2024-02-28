@@ -6,6 +6,7 @@ import 'package:gst_calcuator/di/get_it.dart';
 import 'package:gst_calcuator/features/dash_board/presentation/pages/dash_board_screen.dart';
 import 'package:gst_calcuator/features/gst_calculator/data/models/data_history_model.dart';
 import 'package:gst_calcuator/features/gst_calculator/presentation/pages/gst_calculator_screen.dart';
+import 'package:gst_calcuator/features/interest_calculator/presentation/view/interest_calculator_screen.dart';
 import 'package:gst_calcuator/features/money_cash_counter/presentation/pages/money_cash_counter_screen.dart';
 import 'package:gst_calcuator/features/tax_slab/presentation/pages/tax_slab_screen.dart';
 import 'package:gst_calcuator/global.dart';
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
           '/gst_cal': (context) => const GstCalculatorScreen(),
           '/tax_slab_screen': (context) => const TaxSlabScreen(),
           '/money_cash_counter': (context) => const MoneyCashCounterScreen(),
+          '/interest_calculator_screen': (context) => const InterestCalculatorScreen(),
         },
       ),
     );

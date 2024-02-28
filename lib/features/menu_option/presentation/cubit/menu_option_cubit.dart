@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gst_calcuator/common/app_error.dart';
 import 'package:gst_calcuator/global.dart';
 
 part 'menu_option_state.dart';

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:eval_ex/expression.dart';
+import 'package:gst_calcuator/common/app_error.dart';
 import 'package:gst_calcuator/features/gst_calculator/data/models/data_history_model.dart';
 import 'package:gst_calcuator/global.dart';
 import 'package:intl/intl.dart';

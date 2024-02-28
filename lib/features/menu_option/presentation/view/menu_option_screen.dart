@@ -117,20 +117,23 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      CommonWidget.commonText(text: 'Interest Calculator'),
-                      const Spacer(),
-                      Container(
-                        height: 25,
-                        alignment: Alignment.center,
-                        child: CommonWidget.imageBuilder(
-                          imageUrl: 'assets/images/svg/forward_arrow.svg',
+                  InkWell(
+                    onTap: () => Navigator.popAndPushNamed(context, '/interest_calculator_screen'),
+                    child: Row(
+                      children: [
+                        CommonWidget.commonText(text: 'Interest Calculator'),
+                        const Spacer(),
+                        Container(
                           height: 25,
-                          width: 25,
+                          alignment: Alignment.center,
+                          child: CommonWidget.imageBuilder(
+                            imageUrl: 'assets/images/svg/forward_arrow.svg',
+                            height: 25,
+                            width: 25,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   CommonWidget.commonText(
                     text: 'More',

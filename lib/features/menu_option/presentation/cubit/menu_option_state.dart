@@ -38,4 +38,12 @@ class MenuOptionLoadedState extends MenuOptionState {
   List<Object?> get props => [isSoundOn, isVibrationOn, random];
 }
 
-class MenuOptionErrorState extends MenuOptionState {}
+class MenuOptionErrorState extends MenuOptionState {
+  final AppErrorType appErrorType;
+  final String errorMessage;
+
+  const MenuOptionErrorState({required this.appErrorType, required this.errorMessage});
+
+  @override
+  List<Object> get props => [appErrorType, errorMessage];
+}
