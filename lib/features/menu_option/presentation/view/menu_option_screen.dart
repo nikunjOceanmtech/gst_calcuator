@@ -70,7 +70,7 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/money_cash_counter'),
+                    onTap: () => Navigator.popAndPushNamed(context, '/money_cash_counter'),
                     child: Row(
                       children: [
                         CommonWidget.commonText(text: 'Money Cash Counter'),
