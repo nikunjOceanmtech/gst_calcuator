@@ -7,7 +7,8 @@ import 'package:gst_calcuator/features/gst_calculator/data/models/data_model.dar
 import 'package:gst_calcuator/features/gst_calculator/presentation/cubit/gst_calculator_cubit.dart';
 import 'package:gst_calcuator/features/gst_calculator/presentation/pages/gst_calculator_screen.dart';
 import 'package:gst_calcuator/features/gst_calculator/presentation/widgets/business_calculator_screen.dart';
-import 'package:gst_calcuator/features/gst_calculator/presentation/widgets/calcuation_histrory_screen.dart';
+import 'package:gst_calcuator/features/gst_calculator_history/presentation/view/calcuation_histrory_screen.dart';
+import 'package:gst_calcuator/global.dart';
 
 abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
   late GstCalculatorCubit gstCalculatorCubit;
@@ -16,6 +17,12 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
   void initState() {
     gstCalculatorCubit = getItInstance<GstCalculatorCubit>();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    gstCalculatorCubit.close();
+    super.dispose();
   }
 
   PreferredSizeWidget appBarView({required BuildContext context}) {
@@ -87,7 +94,7 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(flex: 3, child: topView()),
-            Expanded(flex: 6, child: bottomButtonView()),
+            Expanded(flex: 5, child: bottomButtonView()),
           ],
         );
       },
@@ -98,6 +105,7 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
     return Container(
       height: 70,
       alignment: Alignment.center,
+      color: AppConstatnt.default1Color,
       child: CommonWidget.commonText(text: 'image'),
     );
   }
@@ -117,12 +125,12 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
 
   Widget textFieldView() {
     return TextField(
-      controller: TextEditingController(text: gstCalculatorCubit.input),
+      controller: TextEditingController(text: gstCalculatorCubit.inputValue),
       keyboardType: TextInputType.none,
       textAlign: TextAlign.end,
       style: TextStyle(
         color: AppConstatnt.default1Color,
-        fontSize: gstCalculatorCubit.input.length <= 10 ? 30.sp : 25.sp,
+        fontSize: gstCalculatorCubit.inputValue.length <= 10 ? 30.sp : 25.sp,
       ),
       decoration: const InputDecoration(border: InputBorder.none, contentPadding: EdgeInsets.zero),
     );
@@ -130,34 +138,19 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
 
   Widget gstView() {
     return Visibility(
-      visible: gstCalculatorCubit.isGstShow && gstCalculatorCubit.gst != 0 && gstCalculatorCubit.input.isNotEmpty,
+      visible: gstCalculatorCubit.totalGst != 0 && gstCalculatorCubit.totalTax != 0,
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonWidget.commonText(
-                text: 'CGST(${gstCalculatorCubit.gst / 2}%)',
+                text: 'CGST(${gstCalculatorCubit.totalTax / 2}%)',
                 fontSize: 18.sp,
                 color: AppConstatnt.default3Color,
               ),
               CommonWidget.commonText(
-                text: (gstCalculatorCubit.totalGstCount / 2).toStringAsFixed(2),
-                color: AppConstatnt.default3Color,
-                fontSize: 18.sp,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CommonWidget.commonText(
-                text: 'SGST(${gstCalculatorCubit.gst / 2}%)',
-                fontSize: 18.sp,
-                color: AppConstatnt.default3Color,
-              ),
-              CommonWidget.commonText(
-                text: (gstCalculatorCubit.totalGstCount / 2).toStringAsFixed(2),
+                text: (gstCalculatorCubit.totalGst / 2).toStringAsFixed(2),
                 color: AppConstatnt.default3Color,
                 fontSize: 18.sp,
               ),
@@ -167,12 +160,12 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonWidget.commonText(
-                text: 'IGST(${gstCalculatorCubit.gst}%)',
-                color: AppConstatnt.default3Color,
+                text: 'SGST(${gstCalculatorCubit.totalTax / 2}%)',
                 fontSize: 18.sp,
+                color: AppConstatnt.default3Color,
               ),
               CommonWidget.commonText(
-                text: gstCalculatorCubit.totalGstCount.toStringAsFixed(2),
+                text: (gstCalculatorCubit.totalGst / 2).toStringAsFixed(2),
                 color: AppConstatnt.default3Color,
                 fontSize: 18.sp,
               ),
@@ -182,12 +175,27 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonWidget.commonText(
-                text: 'TAX(${gstCalculatorCubit.gst}%)',
+                text: 'IGST(${gstCalculatorCubit.totalTax}%)',
+                color: AppConstatnt.default3Color,
+                fontSize: 18.sp,
+              ),
+              CommonWidget.commonText(
+                text: gstCalculatorCubit.totalGst.toStringAsFixed(2),
+                color: AppConstatnt.default3Color,
+                fontSize: 18.sp,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CommonWidget.commonText(
+                text: 'TAX(${gstCalculatorCubit.totalTax}%)',
                 fontSize: 23.sp,
                 color: AppConstatnt.default3Color,
               ),
               CommonWidget.commonText(
-                text: '+${gstCalculatorCubit.totalGstCount.toStringAsFixed(2)}',
+                text: '+${gstCalculatorCubit.totalGst.toStringAsFixed(2)}',
                 color: AppConstatnt.default2Color,
                 fontSize: 23.sp,
               ),
@@ -198,77 +206,9 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
     );
   }
 
-  Widget bottomButtonView() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: CommonWidget.container(
-        height: ScreenUtil().screenHeight * 0.58,
-        width: ScreenUtil().screenWidth,
-        color: AppConstatnt.grayColor,
-        child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: listOfCalcuatorLable.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () async {
-                if (listOfCalcuatorLable[index].value.isEmpty) {
-                  if (gstCalculatorCubit.input.isNotEmpty) {
-                    if (listOfCalcuatorLable[index].lable.startsWith('+')) {
-                      double totalGst =
-                          double.tryParse(listOfCalcuatorLable[index].lable.replaceAll('+', '').replaceAll('%', '')) ??
-                              0;
-                      gstCalculatorCubit.gstCount(isIncrement: true, totalGst: totalGst);
-                    } else {
-                      double totalGst =
-                          double.tryParse(listOfCalcuatorLable[index].lable.replaceAll('-', '').replaceAll('%', '')) ??
-                              0;
-                      gstCalculatorCubit.gstCount(isIncrement: false, totalGst: totalGst);
-                    }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: CommonWidget.commonText(
-                          text: 'Please Enter Value First',
-                          color: AppConstatnt.whiteTextColor,
-                        ),
-                      ),
-                    );
-                  }
-                } else {
-                  if (gstCalculatorCubit.input.isNotEmpty) {
-                    if (listOfCalcuatorLable[index].value == 'bs') {
-                      gstCalculatorCubit.clearLastData();
-                    } else {
-                      gstCalculatorCubit.onButtonClick(
-                        context: listOfCalcuatorLable[index].value,
-                        buildContext: context,
-                      );
-                    }
-                  } else if (listOfCalcuatorLable[index].value != 'bs') {
-                    gstCalculatorCubit.onButtonClick(
-                      context: listOfCalcuatorLable[index].value,
-                      buildContext: context,
-                    );
-                  }
-                }
-              },
-              child: commonNumberButton(
-                text: listOfCalcuatorLable[index].lable,
-                bgColor: listOfCalcuatorLable[index].bgColor,
-                textColor: listOfCalcuatorLable[index].textColor,
-                fontSize: listOfCalcuatorLable[index].fontSize,
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
   Widget finalOutPutView() {
     return Visibility(
-      visible: gstCalculatorCubit.finalOutput.isNotEmpty && gstCalculatorCubit.input.isNotEmpty,
+      visible: gstCalculatorCubit.finalOutPut != 0,
       child: Column(
         children: [
           const Divider(),
@@ -277,7 +217,11 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
             children: [
               CommonWidget.commonText(text: 'Total', color: AppConstatnt.primary1Color),
               CommonWidget.commonText(
-                text: gstCalculatorCubit.finalOutput,
+                text: gstCalculatorCubit.totalGst != 0
+                    ? gstCalculatorCubit.isGstPlus
+                        ? (gstCalculatorCubit.totalGst + gstCalculatorCubit.finalOutPut).toString()
+                        : (gstCalculatorCubit.finalOutPut - gstCalculatorCubit.totalGst).toString()
+                    : gstCalculatorCubit.finalOutPut.toString(),
                 color: AppConstatnt.primary1Color,
                 fontSize: 28.sp,
               ),
@@ -290,7 +234,8 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
 
   Widget commonNumberButton({required String text, Color? bgColor, Color? textColor, double? fontSize}) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+      height: 60.h,
+      width: 60.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: bgColor ?? AppConstatnt.whiteBackGroundColor,
@@ -301,6 +246,126 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
         color: textColor,
         fontSize: fontSize,
         fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget bottomButtonView() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: CommonWidget.container(
+        height: ScreenUtil().screenHeight * 0.55,
+        width: ScreenUtil().screenWidth,
+        color: AppConstatnt.grayColor,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                gstPlusSlabList.length,
+                (index) => InkWell(
+                  onTap: () => gstCalculatorCubit.getGstValue(
+                    value: double.tryParse(gstPlusSlabList[index].replaceAll('+', '')) ?? 0,
+                    isIncrement: true,
+                  ),
+                  child: commonNumberButton(
+                    text: gstPlusSlabList[index],
+                    bgColor: AppConstatnt.primary4Color,
+                    textColor: AppConstatnt.primary1Color,
+                    fontSize: 25.sp,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                gstMinusSlabList.length,
+                (index) => InkWell(
+                  onTap: () => gstCalculatorCubit.getGstValue(
+                    value: double.tryParse(gstPlusSlabList[index].replaceAll('+', '')) ?? 0,
+                    isIncrement: false,
+                  ),
+                  child: commonNumberButton(
+                    text: gstMinusSlabList[index],
+                    bgColor: AppConstatnt.primary4Color,
+                    textColor: AppConstatnt.primary1Color,
+                    fontSize: 25.sp,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                calculatorFirstLine.length,
+                (index) => InkWell(
+                  onTap: () => gstCalculatorCubit.calculation(value: calculatorFirstLine[index]),
+                  child: commonNumberButton(
+                    text: calculatorFirstLine[index],
+                    bgColor: AppConstatnt.whiteBackGroundColor,
+                    textColor: AppConstatnt.default1Color,
+                    fontSize: 25.sp,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                calculatorSecondLine.length,
+                (index) => InkWell(
+                  onTap: () => gstCalculatorCubit.calculation(value: calculatorSecondLine[index]),
+                  child: commonNumberButton(
+                    text: calculatorSecondLine[index],
+                    bgColor: AppConstatnt.whiteBackGroundColor,
+                    textColor:
+                        calculatorSecondLine[index] == 'AC' ? AppConstatnt.redTextColor : AppConstatnt.default1Color,
+                    fontSize: 25.sp,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                calculatorThirdLine.length,
+                (index) => InkWell(
+                  onTap: () => gstCalculatorCubit.calculation(value: calculatorThirdLine[index]),
+                  child: commonNumberButton(
+                    text: calculatorThirdLine[index],
+                    bgColor: AppConstatnt.whiteBackGroundColor,
+                    textColor: AppConstatnt.default1Color,
+                    fontSize: 25.sp,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                calculatorForuthLine.length,
+                (index) => InkWell(
+                  onTap: () => gstCalculatorCubit.calculation(value: calculatorForuthLine[index]),
+                  child: commonNumberButton(
+                    text: calculatorForuthLine[index],
+                    bgColor: calculatorForuthLine[index] == '='
+                        ? AppConstatnt.primary1Color
+                        : AppConstatnt.whiteBackGroundColor,
+                    textColor:
+                        calculatorForuthLine[index] == '=' ? AppConstatnt.whiteTextColor : AppConstatnt.default1Color,
+                    fontSize: calculatorForuthLine[index] == '=' ? 40.sp : 25.sp,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -20,19 +20,25 @@ class DataHistoryModelAdapter extends TypeAdapter<DataHistoryModel> {
       inputValue: fields[0] as String,
       outputValue: fields[1] as String,
       date: fields[2] as String,
+      isGst: fields[3] as bool,
+      totalTax: fields[4] as double,
     );
   }
 
   @override
   void write(BinaryWriter writer, DataHistoryModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.inputValue)
       ..writeByte(1)
       ..write(obj.outputValue)
       ..writeByte(2)
-      ..write(obj.date);
+      ..write(obj.date)
+      ..writeByte(3)
+      ..write(obj.isGst)
+      ..writeByte(4)
+      ..write(obj.totalTax);
   }
 
   @override

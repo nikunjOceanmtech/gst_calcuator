@@ -23,6 +23,14 @@ Future<void> main() async {
 
       gstHistoryBox = await Hive.openBox(HiveBoxConstants.GST_BOX);
       listOfHistory = await gstHistoryBox.get(HiveConstants.GST_HISTORY, defaultValue: []);
+      gstPlusSlabList = await gstHistoryBox.get(
+        HiveConstants.GST_PLUS_SLAB,
+        defaultValue: ["+3", "+5", "+12", "+18", "+28"],
+      );
+      gstMinusSlabList = await gstHistoryBox.get(
+        HiveConstants.GST_MINUS_SLAB,
+        defaultValue: ["-3", "-5", "-12", "-18", "-28"],
+      );
     },
   );
 

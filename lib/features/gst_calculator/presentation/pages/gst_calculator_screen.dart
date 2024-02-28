@@ -1,3 +1,4 @@
+import 'package:eval_ex/expression.dart';
 import 'package:flutter/material.dart';
 import 'package:gst_calcuator/common/common_widget.dart';
 import 'package:gst_calcuator/features/gst_calculator/presentation/pages/gst_calculator_widget.dart';
@@ -10,6 +11,7 @@ class GstCalculatorScreen extends StatefulWidget {
 }
 
 class _GstCalculatorScreenState extends GstCalculatorWidget {
+  late Expression exp;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
