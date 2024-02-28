@@ -230,7 +230,7 @@ class AppConstatnt {
   static const defaultColor = Color(0xff293847);
   static const whiteColor = Color(0xffffffff);
   static const redColor = Color(0xffF24040);
-  static const grayColor = Color.fromARGB(255, 247, 247, 247);
+  static const grayColor = Color(0xffF6F6F8);
 
   static Color primary1Color = primaryColor;
   static Color primary2Color = primaryColor.withOpacity(0.8);
@@ -244,5 +244,6 @@ class AppConstatnt {
 
   static Color whiteTextColor = whiteColor;
   static Color whiteBackGroundColor = whiteColor;
+  static Color grayBackGroundColor = grayColor;
   static Color redTextColor = redColor;
 }

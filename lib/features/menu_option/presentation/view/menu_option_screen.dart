@@ -69,20 +69,23 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      CommonWidget.commonText(text: 'Money Cash Counter'),
-                      const Spacer(),
-                      Container(
-                        height: 25,
-                        alignment: Alignment.center,
-                        child: CommonWidget.imageBuilder(
-                          imageUrl: 'assets/images/svg/forward_arrow.svg',
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/money_cash_counter'),
+                    child: Row(
+                      children: [
+                        CommonWidget.commonText(text: 'Money Cash Counter'),
+                        const Spacer(),
+                        Container(
                           height: 25,
-                          width: 25,
+                          alignment: Alignment.center,
+                          child: CommonWidget.imageBuilder(
+                            imageUrl: 'assets/images/svg/forward_arrow.svg',
+                            height: 25,
+                            width: 25,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
@@ -156,12 +159,20 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                     ],
                   ),
                   InkWell(
-                    onTap: () => Navigator.of(context).pushNamed('/tax_slab_screen'),
+                    onTap: () => Navigator.popAndPushNamed(context, '/tax_slab_screen'),
                     child: Row(
                       children: [
                         CommonWidget.commonText(text: 'Tax Slab'),
                         const Spacer(),
-                        Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
+                        Container(
+                          height: 25,
+                          alignment: Alignment.center,
+                          child: CommonWidget.imageBuilder(
+                            imageUrl: 'assets/images/svg/forward_arrow.svg',
+                            height: 25,
+                            width: 25,
+                          ),
+                        ),
                       ],
                     ),
                   ),
