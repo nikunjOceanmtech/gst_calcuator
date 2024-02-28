@@ -6,11 +6,15 @@ import 'package:eval_ex/expression.dart';
 import 'package:gst_calcuator/features/gst_calculator/data/models/data_history_model.dart';
 import 'package:gst_calcuator/global.dart';
 import 'package:intl/intl.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:vibration/vibration.dart';
 
 part 'gst_calculator_state.dart';
 
 class GstCalculatorCubit extends Cubit<double> {
   GstCalculatorCubit() : super(0);
+
+  late AudioPlayer audioPlayer;
 
   String inputValue = "";
   double finalOutPut = 0;
@@ -55,6 +59,12 @@ class GstCalculatorCubit extends Cubit<double> {
         totalGst = 0;
       }
     } else {
+      if (isSoundOn) {
+        playAudio();
+      }
+      if (isVibrationOn) {
+        vibrateOnTap();
+      }
       inputValue = inputValue + value;
 
       if (inputValue.startsWith('+') ||
@@ -119,5 +129,19 @@ class GstCalculatorCubit extends Cubit<double> {
     await gstHistoryBox.put(HiveConstants.GST_HISTORY, historyList);
     listOfHistory = await gstHistoryBox.get(HiveConstants.GST_HISTORY);
     emit(Random().nextDouble());
+  }
+
+  void playAudio() {
+    audioPlayer = AudioPlayer()..setAsset('assets/audio/tick.mp3');
+    if (audioPlayer.playing) {
+      audioPlayer.stop();
+    }
+    audioPlayer.play();
+  }
+
+  void vibrateOnTap() async {
+    if (await Vibration.hasVibrator() == true) {
+      Vibration.vibrate(pattern: [100, 100]);
+    }
   }
 }

@@ -31,6 +31,8 @@ Future<void> main() async {
         HiveConstants.GST_MINUS_SLAB,
         defaultValue: ["-3", "-5", "-12", "-18", "-28"],
       );
+      isSoundOn = await gstHistoryBox.get(HiveConstants.IS_SOUND_ON, defaultValue: true);
+      isVibrationOn = await gstHistoryBox.get(HiveConstants.IS_VIBRATION_ON, defaultValue: false);
     },
   );
 

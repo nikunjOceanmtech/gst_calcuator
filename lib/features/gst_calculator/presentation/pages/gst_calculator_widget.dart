@@ -6,7 +6,7 @@ import 'package:gst_calcuator/di/get_it.dart';
 import 'package:gst_calcuator/features/gst_calculator/data/models/data_model.dart';
 import 'package:gst_calcuator/features/gst_calculator/presentation/cubit/gst_calculator_cubit.dart';
 import 'package:gst_calcuator/features/gst_calculator/presentation/pages/gst_calculator_screen.dart';
-import 'package:gst_calcuator/features/gst_calculator/presentation/widgets/business_calculator_screen.dart';
+import 'package:gst_calcuator/features/menu_option/presentation/view/menu_option_screen.dart';
 import 'package:gst_calcuator/features/gst_calculator_history/presentation/view/calcuation_histrory_screen.dart';
 import 'package:gst_calcuator/global.dart';
 
