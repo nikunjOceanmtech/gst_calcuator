@@ -33,7 +33,7 @@ class CommonWidget {
       style: style ??
           TextStyle(
             height: height,
-            color: color ?? AppConstatnt.default1Color,
+            color: color ?? AppColor.default1Color,
             fontSize: fontSize?.sp ?? 20.sp,
             fontWeight: bold == true ? FontWeight.bold : fontWeight,
             fontFamily: fontFamily == false ? null : 'Circular Std',
@@ -83,7 +83,7 @@ class CommonWidget {
       decoration: BoxDecoration(
         border: isBorder == true
             ? Border.all(
-                color: borderColor ?? AppConstatnt.default1Color,
+                color: borderColor ?? AppColor.default1Color,
                 width: borderWidth ?? 1.0,
               )
             : null,
@@ -95,7 +95,7 @@ class CommonWidget {
                 topRight: Radius.circular(topRight ?? 0),
               )
             : boaderRadius(borderRadius ?? 0),
-        color: color ?? AppConstatnt.whiteTextColor,
+        color: color ?? AppColor.whiteTextColor,
       ),
       child: child,
     );
@@ -217,7 +217,7 @@ class CommonWidget {
           "assets/photos/svg/common/warning.svg",
           width: width ?? 32.w,
           height: height ?? 32.h,
-          colorFilter: ColorFilter.mode(color ?? AppConstatnt.primary1Color, BlendMode.srcIn),
+          colorFilter: ColorFilter.mode(color ?? AppColor.primary1Color, BlendMode.srcIn),
           alignment: alignment ?? Alignment.center,
         ),
       ),
@@ -225,12 +225,12 @@ class CommonWidget {
   }
 }
 
-class AppConstatnt {
+class AppColor {
   static const primaryColor = Color(0xff084277);
   static const defaultColor = Color(0xff293847);
   static const whiteColor = Color(0xffffffff);
   static const redColor = Color(0xffF24040);
-  static const grayColor = Color.fromARGB(255, 247, 247, 247);
+  static const greyColor = Color(0xffF6F6F8);
 
   static Color primary1Color = primaryColor;
   static Color primary2Color = primaryColor.withOpacity(0.8);
@@ -244,5 +244,6 @@ class AppConstatnt {
 
   static Color whiteTextColor = whiteColor;
   static Color whiteBackGroundColor = whiteColor;
+  static Color grayBackGroundColor = greyColor;
   static Color redTextColor = redColor;
 }

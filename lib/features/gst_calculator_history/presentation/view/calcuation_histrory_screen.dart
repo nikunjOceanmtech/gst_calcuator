@@ -55,8 +55,8 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
           ),
           SizedBox(width: 15.w),
         ],
-        surfaceTintColor: AppConstatnt.whiteBackGroundColor,
-        backgroundColor: AppConstatnt.whiteBackGroundColor,
+        surfaceTintColor: AppColor.whiteBackGroundColor,
+        backgroundColor: AppColor.whiteBackGroundColor,
         bottom: const PreferredSize(preferredSize: Size(0, 0), child: Divider()),
       ),
       body: BlocBuilder<CalcationHistoryCubit, double>(
@@ -66,7 +66,7 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
             width: ScreenUtil().screenWidth,
             height: ScreenUtil().screenHeight * 0.85,
             decoration: BoxDecoration(
-              color: AppConstatnt.whiteBackGroundColor,
+              color: AppColor.whiteBackGroundColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10.r),
                 bottomRight: Radius.circular(10.r),
@@ -110,7 +110,7 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
                                 CommonWidget.commonText(
                                   textAlign: TextAlign.start,
                                   text: listOfHistory[index].date,
-                                  color: AppConstatnt.primary1Color,
+                                  color: AppColor.primary1Color,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15.sp,
                                 ),
@@ -118,7 +118,7 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
                                   alignment: Alignment.centerRight,
                                   child: CommonWidget.commonText(
                                     text: listOfHistory[index].inputValue,
-                                    color: AppConstatnt.default3Color,
+                                    color: AppColor.default3Color,
                                     fontSize: 25.sp,
                                   ),
                                 ),
@@ -134,7 +134,7 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
                                   alignment: Alignment.centerRight,
                                   child: CommonWidget.commonText(
                                     text: ((double.tryParse(listOfHistory[index].outputValue) ?? 0)).toString(),
-                                    color: AppConstatnt.default1Color,
+                                    color: AppColor.default1Color,
                                     fontSize: 30.sp,
                                   ),
                                 ),
@@ -151,7 +151,7 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
       ),
       bottomNavigationBar: Container(
         height: 30,
-        color: AppConstatnt.whiteBackGroundColor,
+        color: AppColor.whiteBackGroundColor,
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +160,7 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
               height: 5.h,
               width: 30.w,
               decoration: BoxDecoration(
-                color: AppConstatnt.default3Color.withOpacity(0.2),
+                color: AppColor.default3Color.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(50.r),
               ),
             ),
@@ -178,8 +178,8 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
           contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
           insetPadding: EdgeInsets.zero,
           titlePadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-          backgroundColor: AppConstatnt.whiteBackGroundColor,
-          surfaceTintColor: AppConstatnt.whiteBackGroundColor,
+          backgroundColor: AppColor.whiteBackGroundColor,
+          surfaceTintColor: AppColor.whiteBackGroundColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
           title: CommonWidget.commonText(
             text: 'Clear History',
@@ -212,7 +212,7 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
                     Container(
                       width: 1,
                       height: 30.h,
-                      color: AppConstatnt.default3Color,
+                      color: AppColor.default3Color,
                     ),
                     Expanded(
                       child: InkWell(
@@ -249,11 +249,11 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
             CommonWidget.commonText(
               text: 'CGST(${totalTax / 2}%)',
               fontSize: 18.sp,
-              color: AppConstatnt.default3Color,
+              color: AppColor.default3Color,
             ),
             CommonWidget.commonText(
               text: (totalGst / 2).toStringAsFixed(2),
-              color: AppConstatnt.default3Color,
+              color: AppColor.default3Color,
               fontSize: 18.sp,
             ),
           ],
@@ -264,11 +264,11 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
             CommonWidget.commonText(
               text: 'SGST(${totalTax / 2}%)',
               fontSize: 18.sp,
-              color: AppConstatnt.default3Color,
+              color: AppColor.default3Color,
             ),
             CommonWidget.commonText(
               text: (totalGst / 2).toStringAsFixed(2),
-              color: AppConstatnt.default3Color,
+              color: AppColor.default3Color,
               fontSize: 18.sp,
             ),
           ],
@@ -278,12 +278,12 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
           children: [
             CommonWidget.commonText(
               text: 'IGST($totalTax%)',
-              color: AppConstatnt.default3Color,
+              color: AppColor.default3Color,
               fontSize: 18.sp,
             ),
             CommonWidget.commonText(
               text: totalGst.toStringAsFixed(2),
-              color: AppConstatnt.default3Color,
+              color: AppColor.default3Color,
               fontSize: 18.sp,
             ),
           ],

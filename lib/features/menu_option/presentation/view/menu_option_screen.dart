@@ -36,11 +36,11 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
           ),
         ),
         title: CommonWidget.commonText(text: 'Business Calculator'),
-        surfaceTintColor: AppConstatnt.whiteBackGroundColor,
-        backgroundColor: AppConstatnt.whiteBackGroundColor,
+        surfaceTintColor: AppColor.whiteBackGroundColor,
+        backgroundColor: AppColor.whiteBackGroundColor,
         bottom: const PreferredSize(preferredSize: Size(0, 0), child: Divider()),
       ),
-      backgroundColor: AppConstatnt.whiteBackGroundColor,
+      backgroundColor: AppColor.whiteBackGroundColor,
       body: BlocBuilder<MenuOptionCubit, MenuOptionState>(
         bloc: menuOptionCubit,
         builder: (context, state) {
@@ -69,20 +69,23 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      CommonWidget.commonText(text: 'Money Cash Counter'),
-                      const Spacer(),
-                      Container(
-                        height: 25,
-                        alignment: Alignment.center,
-                        child: CommonWidget.imageBuilder(
-                          imageUrl: 'assets/images/svg/forward_arrow.svg',
+                  InkWell(
+                    onTap: () => Navigator.popAndPushNamed(context, '/money_cash_counter'),
+                    child: Row(
+                      children: [
+                        CommonWidget.commonText(text: 'Money Cash Counter'),
+                        const Spacer(),
+                        Container(
                           height: 25,
-                          width: 25,
+                          alignment: Alignment.center,
+                          child: CommonWidget.imageBuilder(
+                            imageUrl: 'assets/images/svg/forward_arrow.svg',
+                            height: 25,
+                            width: 25,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
@@ -132,7 +135,7 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                   CommonWidget.commonText(
                     text: 'More',
                     fontSize: 15.sp,
-                    color: AppConstatnt.default3Color.withOpacity(0.4),
+                    color: AppColor.default3Color.withOpacity(0.4),
                     fontWeight: FontWeight.bold,
                   ),
                   Row(
@@ -156,12 +159,20 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                     ],
                   ),
                   InkWell(
-                    onTap: () => Navigator.of(context).pushNamed('/tax_slab_screen'),
+                    onTap: () => Navigator.popAndPushNamed(context, '/tax_slab_screen'),
                     child: Row(
                       children: [
                         CommonWidget.commonText(text: 'Tax Slab'),
                         const Spacer(),
-                        Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
+                        Container(
+                          height: 25,
+                          alignment: Alignment.center,
+                          child: CommonWidget.imageBuilder(
+                            imageUrl: 'assets/images/svg/forward_arrow.svg',
+                            height: 25,
+                            width: 25,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -174,7 +185,7 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
       ),
       bottomNavigationBar: Container(
         height: 30,
-        color: AppConstatnt.whiteBackGroundColor,
+        color: AppColor.whiteBackGroundColor,
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +194,7 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
               height: 5.h,
               width: 30.w,
               decoration: BoxDecoration(
-                color: AppConstatnt.default3Color.withOpacity(0.2),
+                color: AppColor.default3Color.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(50.r),
               ),
             ),
