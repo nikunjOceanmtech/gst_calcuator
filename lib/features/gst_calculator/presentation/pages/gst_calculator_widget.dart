@@ -28,24 +28,38 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
   PreferredSizeWidget appBarView({required BuildContext context}) {
     return AppBar(
       backgroundColor: AppConstatnt.whiteBackGroundColor,
-      leading: IconButton(
-        onPressed: () => Navigator.of(context).pop(),
-        icon: Icon(Icons.arrow_back_ios_new_rounded, size: 25.h),
+      leading: InkWell(
+        onTap: () => Navigator.pop(context),
+        child: Container(
+          height: 30,
+          alignment: Alignment.center,
+          child: CommonWidget.imageBuilder(imageUrl: 'assets/images/svg/back_arrow.svg', height: 30, width: 30),
+        ),
       ),
       title: CommonWidget.commonText(text: 'GST Cal'),
       actions: [
-        IconButton(
-          onPressed: () => showTopBottomSheetView(context: context, child: const CalcuationHistroryScreen()),
-          icon: const Icon(Icons.history),
+        InkWell(
+          onTap: () => showTopBottomSheetView(context: context, child: const CalcuationHistroryScreen()),
+          child: Container(
+            height: 25,
+            alignment: Alignment.center,
+            child: CommonWidget.imageBuilder(imageUrl: 'assets/images/svg/history.svg', height: 25, width: 25),
+          ),
         ),
-        IconButton(
-          onPressed: () => showTopBottomSheetView(
+        SizedBox(width: 15.w),
+        InkWell(
+          onTap: () => showTopBottomSheetView(
             context: context,
             child: const BusinessCalculatorScreen(),
             height: ScreenUtil().screenHeight * 0.7,
           ),
-          icon: const Icon(Icons.fullscreen_exit),
+          child: Container(
+            height: 22,
+            alignment: Alignment.center,
+            child: CommonWidget.imageBuilder(imageUrl: 'assets/images/svg/more_option.svg', height: 22, width: 22),
+          ),
         ),
+        SizedBox(width: 15.w),
       ],
     );
   }

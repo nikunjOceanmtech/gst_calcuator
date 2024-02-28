@@ -27,15 +27,20 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: () => Navigator.pop(context),
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            height: 30,
+            alignment: Alignment.center,
+            child: CommonWidget.imageBuilder(imageUrl: 'assets/images/svg/back_arrow.svg', height: 30, width: 30),
+          ),
         ),
         title: CommonWidget.commonText(text: 'Business Calculator'),
         surfaceTintColor: AppConstatnt.whiteBackGroundColor,
         backgroundColor: AppConstatnt.whiteBackGroundColor,
         bottom: const PreferredSize(preferredSize: Size(0, 0), child: Divider()),
       ),
+      backgroundColor: AppConstatnt.whiteBackGroundColor,
       body: BlocBuilder<MenuOptionCubit, MenuOptionState>(
         bloc: menuOptionCubit,
         builder: (context, state) {
@@ -46,39 +51,82 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      CommonWidget.commonText(text: 'GST Calculator'),
-                      const Spacer(),
-                      Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
-                    ],
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Row(
+                      children: [
+                        CommonWidget.commonText(text: 'GST Calculator'),
+                        const Spacer(),
+                        Container(
+                          height: 25,
+                          alignment: Alignment.center,
+                          child: CommonWidget.imageBuilder(
+                            imageUrl: 'assets/images/svg/forward_arrow.svg',
+                            height: 25,
+                            width: 25,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
                       CommonWidget.commonText(text: 'Money Cash Counter'),
                       const Spacer(),
-                      Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
+                      Container(
+                        height: 25,
+                        alignment: Alignment.center,
+                        child: CommonWidget.imageBuilder(
+                          imageUrl: 'assets/images/svg/forward_arrow.svg',
+                          height: 25,
+                          width: 25,
+                        ),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
                       CommonWidget.commonText(text: 'Loan Emi Calculator'),
                       const Spacer(),
-                      Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
+                      Container(
+                        height: 25,
+                        alignment: Alignment.center,
+                        child: CommonWidget.imageBuilder(
+                          imageUrl: 'assets/images/svg/forward_arrow.svg',
+                          height: 25,
+                          width: 25,
+                        ),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
                       CommonWidget.commonText(text: 'Currency Converter'),
                       const Spacer(),
-                      Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
+                      Container(
+                        height: 25,
+                        alignment: Alignment.center,
+                        child: CommonWidget.imageBuilder(
+                          imageUrl: 'assets/images/svg/forward_arrow.svg',
+                          height: 25,
+                          width: 25,
+                        ),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
                       CommonWidget.commonText(text: 'Interest Calculator'),
                       const Spacer(),
-                      Icon(Icons.arrow_forward_ios_rounded, color: AppConstatnt.default3Color.withOpacity(0.2)),
+                      Container(
+                        height: 25,
+                        alignment: Alignment.center,
+                        child: CommonWidget.imageBuilder(
+                          imageUrl: 'assets/images/svg/forward_arrow.svg',
+                          height: 25,
+                          width: 25,
+                        ),
+                      ),
                     ],
                   ),
                   CommonWidget.commonText(

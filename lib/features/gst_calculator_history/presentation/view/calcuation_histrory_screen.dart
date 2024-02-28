@@ -36,82 +36,24 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: CommonWidget.commonText(text: 'History'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: () => Navigator.pop(context),
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            height: 30,
+            alignment: Alignment.center,
+            child: CommonWidget.imageBuilder(imageUrl: 'assets/images/svg/back_arrow.svg', height: 30, width: 30),
+          ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.clear),
-            onPressed: () async {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
-                    insetPadding: EdgeInsets.zero,
-                    titlePadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                    backgroundColor: AppConstatnt.whiteBackGroundColor,
-                    surfaceTintColor: AppConstatnt.whiteBackGroundColor,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-                    title: CommonWidget.commonText(
-                      text: 'Clear History',
-                      bold: true,
-                      fontSize: 18.sp,
-                    ),
-                    content: SizedBox(
-                      width: ScreenUtil().screenWidth * 0.9,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CommonWidget.commonText(
-                            text: 'Are you sure you want to delete this history?',
-                            fontSize: 15.sp,
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () => Navigator.pop(context),
-                                  child: Container(
-                                    height: 50.h,
-                                    alignment: Alignment.center,
-                                    child: CommonWidget.commonText(text: 'Cancel'),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 1,
-                                height: 30.h,
-                                color: AppConstatnt.default3Color,
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () async {
-                                    await gstHistoryBox.put(HiveConstants.GST_HISTORY, []);
-                                    listOfHistory = await gstHistoryBox.get(HiveConstants.GST_HISTORY);
-                                    calcationHistoryCubit.updateScreenData();
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    height: 50.h,
-                                    alignment: Alignment.center,
-                                    child: CommonWidget.commonText(text: 'Delete'),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
+          InkWell(
+            onTap: () => showDeleteDialog(context: context),
+            child: Container(
+              height: 25,
+              alignment: Alignment.center,
+              child: CommonWidget.imageBuilder(imageUrl: 'assets/images/svg/clear.svg', height: 25, width: 25),
+            ),
           ),
+          SizedBox(width: 15.w),
         ],
         surfaceTintColor: AppConstatnt.whiteBackGroundColor,
         backgroundColor: AppConstatnt.whiteBackGroundColor,
@@ -133,7 +75,23 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
             child: Padding(
               padding: EdgeInsets.only(top: 30.h, left: 20.w, right: 20.w),
               child: listOfHistory.isEmpty
-                  ? Center(child: CommonWidget.commonText(text: 'No Data Found'))
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CommonWidget.imageBuilder(
+                            imageUrl: 'assets/images/svg/no_history1.png',
+                            height: 150.h,
+                          ),
+                          SizedBox(height: 20.h),
+                          CommonWidget.commonText(
+                            text: 'No History',
+                            color: const Color(0xff7BA7CE),
+                            fontSize: 18.sp,
+                          ),
+                        ],
+                      ),
+                    )
                   : SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Column(
@@ -209,6 +167,75 @@ class CcalcuationHistroryScreenState extends State<CalcuationHistroryScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<dynamic> showDeleteDialog({required BuildContext context}) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
+          insetPadding: EdgeInsets.zero,
+          titlePadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+          backgroundColor: AppConstatnt.whiteBackGroundColor,
+          surfaceTintColor: AppConstatnt.whiteBackGroundColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+          title: CommonWidget.commonText(
+            text: 'Clear History',
+            bold: true,
+            fontSize: 18.sp,
+          ),
+          content: SizedBox(
+            width: ScreenUtil().screenWidth * 0.9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CommonWidget.commonText(
+                  text: 'Are you sure you want to delete this history?',
+                  fontSize: 15.sp,
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Container(
+                          height: 50.h,
+                          alignment: Alignment.center,
+                          child: CommonWidget.commonText(text: 'Cancel'),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 1,
+                      height: 30.h,
+                      color: AppConstatnt.default3Color,
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () async {
+                          await gstHistoryBox.put(HiveConstants.GST_HISTORY, []);
+                          listOfHistory = await gstHistoryBox.get(HiveConstants.GST_HISTORY);
+                          calcationHistoryCubit.updateScreenData();
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          height: 50.h,
+                          alignment: Alignment.center,
+                          child: CommonWidget.commonText(text: 'Delete'),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

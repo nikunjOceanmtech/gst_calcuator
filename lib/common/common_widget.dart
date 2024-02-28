@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CommonWidget {
   static Widget commonText({
@@ -99,6 +103,125 @@ class CommonWidget {
 
   static BorderRadius boaderRadius(double radius) {
     return BorderRadius.all(Radius.circular(radius));
+  }
+
+  static Widget imageBuilder({
+    required String imageUrl,
+    double? height,
+    double? width,
+    double? borderRadius,
+    int? cacheWidth,
+    BoxFit? fit,
+    Color? color,
+    bool? isBorderOnlySide,
+    Radius? bottomLeft,
+    Radius? bottomRight,
+    Radius? topLeft,
+    Radius? topRight,
+    EdgeInsets? padding,
+    double? horizontalPadding,
+    double? verticalPadding,
+  }) {
+    if (imageUrl.isEmpty) {
+      return Center(child: warningIcon(color: color));
+    } else if (imageUrl.startsWith('https')) {
+      if (imageUrl.endsWith('svg')) {
+        return SvgPicture.network(
+          imageUrl,
+          fit: fit ?? BoxFit.fitWidth,
+          width: width,
+          height: height,
+          colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+          placeholderBuilder: (context) => SizedBox(
+            height: height?.h,
+            width: width?.w,
+            child: warningIcon(color: color, bgColor: Colors.transparent),
+          ),
+        );
+      } else {
+        return ClipRRect(
+          borderRadius: isBorderOnlySide == true
+              ? BorderRadius.only(
+                  bottomLeft: bottomLeft ?? Radius.zero,
+                  bottomRight: bottomRight ?? Radius.zero,
+                  topLeft: topLeft ?? Radius.zero,
+                  topRight: topRight ?? Radius.zero,
+                )
+              : BorderRadius.circular(borderRadius ?? 0),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            fit: fit ?? BoxFit.cover,
+            memCacheWidth: cacheWidth,
+            color: color,
+            height: height,
+            width: width,
+            placeholder: (context, url) => SizedBox(height: height?.h, width: width?.w),
+            errorListener: (value) => warningIcon(
+              color: color,
+              bgColor: Colors.grey.withOpacity(0.15),
+            ),
+            errorWidget: (context, error, stackTrace) => warningIcon(
+              color: color,
+              bgColor: Colors.grey.withOpacity(0.15),
+            ),
+          ),
+        );
+      }
+    } else if (imageUrl.startsWith('assets') && imageUrl.endsWith('.svg')) {
+      return SvgPicture.asset(
+        imageUrl,
+        fit: fit ?? BoxFit.fitWidth,
+        width: width,
+        height: height,
+        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+      );
+    } else if (imageUrl.startsWith('assets')) {
+      return Padding(
+        padding: padding ?? EdgeInsets.zero,
+        child: Image.asset(
+          imageUrl,
+          fit: fit ?? BoxFit.fitWidth,
+          width: width,
+          height: height,
+          color: color,
+          cacheWidth: cacheWidth,
+          errorBuilder: (context, error, stackTrace) => warningIcon(color: color),
+        ),
+      );
+    } else if (imageUrl.endsWith('.svg')) {
+      return SvgPicture.file(
+        File(imageUrl),
+        fit: fit ?? BoxFit.fitWidth,
+        width: width,
+        height: height,
+        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+      );
+    } else {
+      return Image.file(
+        File(imageUrl),
+        fit: fit ?? BoxFit.fitWidth,
+        width: width,
+        height: height,
+        color: color,
+        cacheWidth: cacheWidth,
+        errorBuilder: (context, error, stackTrace) => warningIcon(color: color),
+      );
+    }
+  }
+
+  static Widget warningIcon({double? width, double? height, Color? color, Alignment? alignment, Color? bgColor}) {
+    return Container(
+      color: bgColor,
+      child: Center(
+        child: SvgPicture.asset(
+          "assets/photos/svg/common/warning.svg",
+          width: width ?? 32.w,
+          height: height ?? 32.h,
+          colorFilter: ColorFilter.mode(color ?? AppConstatnt.primary1Color, BlendMode.srcIn),
+          alignment: alignment ?? Alignment.center,
+        ),
+      ),
+    );
   }
 }
 

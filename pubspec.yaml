@@ -45,6 +45,8 @@ dependencies:
   eval_ex: ^1.1.8
   just_audio: ^0.9.36
   vibration: ^1.8.4
+  flutter_svg: ^2.0.7
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +77,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/audio/
+    - assets/images/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
