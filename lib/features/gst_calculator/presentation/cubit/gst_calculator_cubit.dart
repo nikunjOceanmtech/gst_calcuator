@@ -140,8 +140,7 @@ class GstCalculatorCubit extends Cubit<double> {
   }
 
   void vibrateOnTap() async {
-    if (await Vibration.hasVibrator() == true) {
-      Vibration.vibrate(pattern: [100, 100]);
-    }
+    if (await Vibration.hasVibrator() == true) {}
+    Vibration.vibrate(pattern: [60, 60]);
   }
 }
