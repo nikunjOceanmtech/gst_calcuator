@@ -46,7 +46,7 @@ class _TaxSlabScreenState extends State<TaxSlabScreen> {
           backgroundColor: AppColor.whiteBackGroundColor,
           actions: [
             InkWell(
-              onTap: () => Navigator.pop(context),
+              onTap: () => taxSlabCubit.updateGstData(context: context),
               child: Container(
                 height: 25,
                 alignment: Alignment.center,
@@ -62,8 +62,6 @@ class _TaxSlabScreenState extends State<TaxSlabScreen> {
           bloc: taxSlabCubit,
           builder: (context, state) {
             if (state is TaxSlabLoadedState) {
-              print(state.gstMinusSlabList);
-              print(state.gstPlusSlabList);
               return Column(
                 children: [
                   SizedBox(height: 15.h),
@@ -122,6 +120,7 @@ class _TaxSlabScreenState extends State<TaxSlabScreen> {
                               ),
                               alignment: Alignment.center,
                               child: TextField(
+                                keyboardType: TextInputType.phone,
                                 controller: TextEditingController(text: state.gstMinusSlabList[index]),
                                 decoration: const InputDecoration(
                                   contentPadding: EdgeInsets.zero,
