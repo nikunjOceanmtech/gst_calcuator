@@ -42,8 +42,8 @@ class _TaxSlabScreenState extends State<TaxSlabScreen> {
             ),
           ),
           title: CommonWidget.commonText(text: 'Change Tax Slab'),
-          surfaceTintColor: AppConstatnt.whiteBackGroundColor,
-          backgroundColor: AppConstatnt.whiteBackGroundColor,
+          surfaceTintColor: AppColor.whiteBackGroundColor,
+          backgroundColor: AppColor.whiteBackGroundColor,
           actions: [
             InkWell(
               onTap: () => Navigator.pop(context),
@@ -57,7 +57,7 @@ class _TaxSlabScreenState extends State<TaxSlabScreen> {
           ],
           bottom: const PreferredSize(preferredSize: Size(50, 15), child: Divider()),
         ),
-        backgroundColor: AppConstatnt.whiteBackGroundColor,
+        backgroundColor: AppColor.whiteBackGroundColor,
         body: BlocBuilder<TaxSlabCubit, TaxSlabState>(
           bloc: taxSlabCubit,
           builder: (context, state) {
@@ -85,7 +85,7 @@ class _TaxSlabScreenState extends State<TaxSlabScreen> {
                               width: 65.w,
                               padding: EdgeInsets.only(left: 18.w),
                               decoration: BoxDecoration(
-                                border: Border.all(color: AppConstatnt.primary1Color),
+                                border: Border.all(color: AppColor.primary1Color),
                                 borderRadius: BorderRadius.circular(5),
                                 color: const Color(0xffE0E9F1),
                               ),
@@ -116,7 +116,7 @@ class _TaxSlabScreenState extends State<TaxSlabScreen> {
                               width: 65.w,
                               padding: EdgeInsets.only(left: 18.w),
                               decoration: BoxDecoration(
-                                border: Border.all(color: AppConstatnt.primary1Color),
+                                border: Border.all(color: AppColor.primary1Color),
                                 borderRadius: BorderRadius.circular(5),
                                 color: const Color(0xffE0E9F1),
                               ),

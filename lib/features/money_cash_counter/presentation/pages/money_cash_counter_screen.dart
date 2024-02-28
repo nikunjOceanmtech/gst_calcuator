@@ -14,7 +14,7 @@ class _MoneyCashCounterScreenState extends MoneyCashCounterWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: AppConstatnt.grayBackGroundColor,
+      backgroundColor: AppColor.grayBackGroundColor,
       appBar: appBar(),
       body: screenView(),
     );

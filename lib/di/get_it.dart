@@ -36,6 +36,7 @@ Future init() async {
   getItInstance.registerFactory<MenuOptionCubit>(() => MenuOptionCubit());
   getItInstance.registerFactory<TaxSlabCubit>(() => TaxSlabCubit());
   getItInstance.registerFactory<MoneyCashCounterCubit>(() => MoneyCashCounterCubit());
+  // getItInstance.registerFactory<EmiCountCubit>(() => EmiCountCubit());
 
   //Theme Dependency
   // getItInstance.registerLazySingleton<GetPreferredTheme>(() => GetPreferredTheme(appRepository: getItInstance()));

@@ -62,7 +62,7 @@ abstract class MoneyCashCounterWidget extends State<MoneyCashCounterScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.r),
-                    color: AppConstatnt.whiteBackGroundColor,
+                    color: AppColor.whiteBackGroundColor,
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -141,7 +141,7 @@ abstract class MoneyCashCounterWidget extends State<MoneyCashCounterScreen> {
 
   AppBar appBar() {
     return AppBar(
-      backgroundColor: AppConstatnt.grayBackGroundColor,
+      backgroundColor: AppColor.grayBackGroundColor,
       titleSpacing: 0,
       leading: const Icon(Icons.arrow_back_ios),
       title: Text(
@@ -174,7 +174,7 @@ abstract class MoneyCashCounterWidget extends State<MoneyCashCounterScreen> {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: Colors.white),
       child: Column(
         children: [
-          CommonWidget.commonText(text: title, color: AppConstatnt.primary1Color, bold: true),
+          CommonWidget.commonText(text: title, color: AppColor.primary1Color, bold: true),
           SizedBox(height: 10.h),
           CommonWidget.commonText(text: subtile, fontSize: 18.sp),
         ],

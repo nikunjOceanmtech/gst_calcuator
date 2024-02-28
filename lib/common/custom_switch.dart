@@ -24,7 +24,7 @@ class CustomSwitch extends StatelessWidget {
                 height: 15,
                 width: 35,
                 decoration: BoxDecoration(
-                  color: value ? AppConstatnt.primary3Color : AppConstatnt.default4Color,
+                  color: value ? AppColor.primary3Color : AppColor.default4Color,
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
@@ -41,10 +41,10 @@ class CustomSwitch extends StatelessWidget {
                         BoxShadow(
                           blurRadius: 2,
                           offset: const Offset(0, 1),
-                          color: value ? AppConstatnt.primary1Color : AppConstatnt.default2Color,
+                          color: value ? AppColor.primary1Color : AppColor.default2Color,
                         ),
                       ],
-                      color: AppConstatnt.default3Color,
+                      color: AppColor.default3Color,
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),

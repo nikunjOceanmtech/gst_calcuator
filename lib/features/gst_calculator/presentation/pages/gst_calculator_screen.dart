@@ -16,7 +16,7 @@ class _GstCalculatorScreenState extends GstCalculatorWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppConstatnt.grayColor,
+        backgroundColor: AppColor.greyColor,
         appBar: appBarView(context: context),
         body: screenView(),
         bottomNavigationBar: bottomView(),
