@@ -5,13 +5,6 @@ import 'package:gst_calcuator/di/get_it.dart';
 import 'package:gst_calcuator/features/interest_calculator/presentation/cubit/interest_calculator_cubit.dart';
 import 'package:gst_calcuator/features/interest_calculator/presentation/view/interest_calculator_screen.dart';
 
-// DateTime d1 = DateTime.now();
-// DateTime d2 = DateTime.now().subtract(const Duration(days: 366));
-// Duration duration = d1.difference(d2);
-// int diffmonths1 = duration.inDays ~/ 365;
-// int diffmonths2 = duration.inDays ~/ 30;
-// print('year $diffmonths1 days $diffmonths2');
-
 abstract class InterestCalculatorWidgte extends State<InterestCalculatorScreen> {
   late InterestCalculatorCubit interestCalculatorCubit;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
