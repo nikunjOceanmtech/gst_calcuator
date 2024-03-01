@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:eval_ex/expression.dart';
 import 'package:flutter/material.dart';
 import 'package:gst_calcuator/common/app_error.dart';
 
@@ -17,6 +18,7 @@ class InterestCalculatorCubit extends Cubit<InterestCalculatorState> {
             rateType: RateType.Yearly,
             totalInterestAmount: 0,
             totalInterest: 0,
+            selectedTab: 0,
           ),
         );
 
@@ -47,17 +49,14 @@ class InterestCalculatorCubit extends Cubit<InterestCalculatorState> {
     double totalAmount = double.tryParse(totalAmountController.text) ?? 0;
     double totalRate = double.tryParse(totalRateController.text) ?? 0;
     double totalTime = state.toDate.difference(state.fromDate).inDays / 366;
-    double totalInterestAmount = 0;
-    double totalInterest = 0;
-
+    String input = "";
     if (state.rateType == RateType.Monthly) {
-      totalInterestAmount = (totalAmount * (totalRate / 100) * (totalTime * 12));
-      totalInterest = totalInterestAmount + totalAmount;
+      input = '$totalAmount * $totalRate / 100 * $totalTime * 12';
     } else if (state.rateType == RateType.Yearly) {
-      totalInterestAmount = (totalAmount * totalRate * totalTime) / 100;
-      totalInterest = totalInterestAmount + totalAmount;
+      input = '$totalAmount * $totalRate * ${totalTime.toStringAsFixed(0)} / 100';
     }
-
+    double totalInterestAmount = Expression(input).eval()?.toDouble() ?? 0;
+    double totalInterest = totalInterestAmount + totalAmount;
     emit(
       state.copyWith(
         isDetailsShow: isShow,
@@ -79,7 +78,11 @@ class InterestCalculatorCubit extends Cubit<InterestCalculatorState> {
     int years = difference.inDays ~/ 365;
     int remainingDays = difference.inDays % 365;
     int months = remainingDays ~/ 30;
-    int days = remainingDays % 30 - 1;
+    int days = remainingDays % 30;
     return '$years years $months months $days days';
+  }
+
+  void changeTab({required int value, required InterestCalculatorLoadedState state}) {
+    emit(state.copyWith(selectedTab: value, random: Random().nextDouble()));
   }
 }

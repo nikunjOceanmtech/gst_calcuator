@@ -2,7 +2,7 @@
 
 part of 'interest_calculator_cubit.dart';
 
-enum RateType { Monthly , Yearly }
+enum RateType { Monthly, Yearly }
 
 abstract class InterestCalculatorState extends Equatable {
   const InterestCalculatorState();
@@ -22,6 +22,8 @@ class InterestCalculatorLoadedState extends InterestCalculatorState {
   final double totalInterestAmount;
   final double totalInterest;
 
+  final int selectedTab;
+
   const InterestCalculatorLoadedState({
     required this.fromDate,
     required this.toDate,
@@ -30,6 +32,7 @@ class InterestCalculatorLoadedState extends InterestCalculatorState {
     required this.rateType,
     required this.totalInterestAmount,
     required this.totalInterest,
+    required this.selectedTab,
   });
 
   InterestCalculatorLoadedState copyWith({
@@ -40,6 +43,7 @@ class InterestCalculatorLoadedState extends InterestCalculatorState {
     RateType? rateType,
     double? totalInterestAmount,
     double? totalInterest,
+    int? selectedTab,
   }) {
     return InterestCalculatorLoadedState(
       fromDate: fromDate ?? this.fromDate,
@@ -49,6 +53,7 @@ class InterestCalculatorLoadedState extends InterestCalculatorState {
       rateType: rateType ?? this.rateType,
       totalInterestAmount: totalInterestAmount ?? this.totalInterestAmount,
       totalInterest: totalInterest ?? this.totalInterest,
+      selectedTab: selectedTab ?? this.selectedTab,
     );
   }
 
