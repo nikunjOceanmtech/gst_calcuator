@@ -19,39 +19,51 @@ class _InterestCalculatorScreenState extends InterestCalculatorWidgte {
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColor.whiteBackGroundColor,
+            surfaceTintColor: AppColor.whiteBackGroundColor,
+            bottom: TabBar(
+              onTap: (value) => interestCalculatorCubit.changeTab(
+                value: value,
+                state: (interestCalculatorCubit.state as InterestCalculatorLoadedState),
+              ),
+              tabs: [
+                Tab(
+                  child: Container(
+                    width: ScreenUtil().screenWidth * 0.5,
+                    alignment: Alignment.center,
+                    child: CommonWidget.commonText(
+                      text: 'Simple',
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Container(
+                    width: ScreenUtil().screenWidth * 0.5,
+                    alignment: Alignment.center,
+                    child: CommonWidget.commonText(
+                      text: 'Compound',
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           backgroundColor: AppColor.whiteBackGroundColor,
           body: BlocBuilder<InterestCalculatorCubit, InterestCalculatorState>(
             bloc: interestCalculatorCubit,
             builder: (context, state) {
               if (state is InterestCalculatorLoadedState) {
-                // return Form(
-                //   key: formKey,
-                //   child: screenView(state: state),
-                // );
-                return TabBar(
-                  onTap: (value) => interestCalculatorCubit.changeTab(value: value, state: state),
-                  tabs: [
-                    Tab(
-                      child: Container(
-                        width: ScreenUtil().screenWidth * 0.5,
-                        alignment: Alignment.center,
-                        child: CommonWidget.commonText(
-                          text: 'Simple',
-                          fontSize: 18.sp,
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: Container(
-                        width: ScreenUtil().screenWidth * 0.5,
-                        alignment: Alignment.center,
-                        child: CommonWidget.commonText(
-                          text: 'Simple',
-                          fontSize: 18.sp,
-                        ),
-                      ),
-                    ),
-                  ],
+                return Form(
+                  key: formKey,
+                  child: TabBarView(
+                    children: [
+                      screenView(state: state),
+                      screenView(state: state),
+                    ],
+                  ),
                 );
               }
               return const SizedBox.shrink();

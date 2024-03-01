@@ -14,7 +14,6 @@ import 'package:gst_calcuator/features/interest_calculator/presentation/view/int
 
 abstract class InterestCalculatorWidgte extends State<InterestCalculatorScreen> {
   late InterestCalculatorCubit interestCalculatorCubit;
-
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
