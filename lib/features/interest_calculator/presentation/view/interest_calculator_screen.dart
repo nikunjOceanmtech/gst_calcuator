@@ -27,6 +27,7 @@ class _InterestCalculatorScreenState extends InterestCalculatorWidgte {
                 value: value,
                 state: (interestCalculatorCubit.state as InterestCalculatorLoadedState),
               ),
+              physics: const NeverScrollableScrollPhysics(),
               tabs: [
                 Tab(
                   child: Container(
@@ -59,6 +60,7 @@ class _InterestCalculatorScreenState extends InterestCalculatorWidgte {
                 return Form(
                   key: formKey,
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       screenView(state: state),
                       screenView(state: state),

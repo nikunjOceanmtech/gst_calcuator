@@ -50,13 +50,26 @@ class InterestCalculatorCubit extends Cubit<InterestCalculatorState> {
     double totalRate = double.tryParse(totalRateController.text) ?? 0;
     double totalTime = state.toDate.difference(state.fromDate).inDays / 366;
     String input = "";
-    if (state.rateType == RateType.Monthly) {
-      input = '$totalAmount * $totalRate / 100 * $totalTime * 12';
-    } else if (state.rateType == RateType.Yearly) {
-      input = '$totalAmount * $totalRate * ${totalTime.toStringAsFixed(0)} / 100';
+    double totalInterestAmount = 0;
+    double totalInterest = 0;
+
+    if (state.selectedTab == 0) {
+      if (state.rateType == RateType.Monthly) {
+        input = '$totalAmount * $totalRate / 100 * $totalTime * 12';
+      } else if (state.rateType == RateType.Yearly) {
+        input = '$totalAmount * $totalRate * $totalTime / 100';
+      }
+    } else {
+      if (state.rateType == RateType.Monthly) {
+        input = '$totalAmount * ${pow((1 + totalRate / 100.0 / 1), 1 * (totalTime * 12))} - $totalAmount';
+      } else if (state.rateType == RateType.Yearly) {
+        input = '$totalAmount * ${pow((1 + totalRate / 100.0 / 1), 1 * totalTime)} - $totalAmount';
+      }
     }
-    double totalInterestAmount = Expression(input).eval()?.toDouble() ?? 0;
-    double totalInterest = totalInterestAmount + totalAmount;
+
+    totalInterestAmount = Expression(input).eval()?.toDouble() ?? 0;
+    totalInterest = totalInterestAmount + totalAmount;
+
     emit(
       state.copyWith(
         isDetailsShow: isShow,
@@ -83,6 +96,6 @@ class InterestCalculatorCubit extends Cubit<InterestCalculatorState> {
   }
 
   void changeTab({required int value, required InterestCalculatorLoadedState state}) {
-    emit(state.copyWith(selectedTab: value, random: Random().nextDouble()));
+    emit(state.copyWith(selectedTab: value, random: Random().nextDouble(), isDetailsShow: false));
   }
 }
