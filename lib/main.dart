@@ -1,13 +1,11 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gst_calcuator/di/get_it.dart';
-import 'package:gst_calcuator/features/dash_board/presentation/pages/dash_board_screen.dart';
 import 'package:gst_calcuator/features/gst_calculator/data/models/data_history_model.dart';
-import 'package:gst_calcuator/features/gst_calculator/presentation/pages/gst_calculator_screen.dart';
-import 'package:gst_calcuator/features/money_cash_counter/presentation/pages/money_cash_counter_screen.dart';
-import 'package:gst_calcuator/features/tax_slab/presentation/pages/tax_slab_screen.dart';
 import 'package:gst_calcuator/global.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -56,13 +54,12 @@ class _MyAppState extends State<MyApp> {
       rebuildFactor: (old, data) => RebuildFactors.orientation(old, data),
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
+        theme: ThemeData(
+          splashFactory: NoSplash.splashFactory,
+          splashColor: Colors.transparent,
+        ),
         debugShowCheckedModeBanner: false,
-        routes: {
-          '/': (context) => const DashBoardScreen(),
-          '/gst_cal': (context) => const GstCalculatorScreen(),
-          '/tax_slab_screen': (context) => const TaxSlabScreen(),
-          '/money_cash_counter': (context) => const MoneyCashCounterScreen(),
-        },
+        routes: routes,
       ),
     );
   }

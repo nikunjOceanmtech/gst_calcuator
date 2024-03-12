@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:date_picker_plus/date_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -135,7 +136,7 @@ class CommonWidget {
           placeholderBuilder: (context) => SizedBox(
             height: height?.h,
             width: width?.w,
-            child: warningIcon(color: color, bgColor: Colors.transparent),
+            child: warningIcon(color: color, bgColor: AppColor.primary1Color),
           ),
         );
       } else {
@@ -214,7 +215,8 @@ class CommonWidget {
       color: bgColor,
       child: Center(
         child: SvgPicture.asset(
-          "assets/photos/svg/common/warning.svg",
+          // TODO: change To your Warning path...
+          "assets/images/svg/warning.svg",
           width: width ?? 32.w,
           height: height ?? 32.h,
           colorFilter: ColorFilter.mode(color ?? AppColor.primary1Color, BlendMode.srcIn),
@@ -223,11 +225,32 @@ class CommonWidget {
       ),
     );
   }
+
+  static Future<DateTime> datePicker({
+    bool isRangeDate = false,
+    required BuildContext context,
+    required DateTime minDate,
+    DateTime? maxDate,
+    DateTime? selectedDate,
+  }) async {
+    List<DateTime> dateList = [];
+    DateTime date = await showDatePickerDialog(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          selectedDate: selectedDate,
+          context: context,
+          maxDate: maxDate ?? DateTime(DateTime.now().year + 500),
+          minDate: minDate,
+        ) ??
+        DateTime.now();
+    dateList = [date];
+
+    return dateList.first;
+  }
 }
 
 class AppColor {
   static const primaryColor = Color(0xff084277);
-  static const defaultColor = Color(0xff293847);
+  static const defaultColor = Color(0xff323232);
   static const whiteColor = Color(0xffffffff);
   static const redColor = Color(0xffF24040);
   static const greyColor = Color(0xffF6F6F8);
@@ -246,4 +269,10 @@ class AppColor {
   static Color whiteBackGroundColor = whiteColor;
   static Color grayBackGroundColor = greyColor;
   static Color redTextColor = redColor;
+
+  // New
+
+  static Color borderColor = const Color(0xffA9A6A6);
+  static Color headingColor = const Color(0xff939393);
+  static Color textColor = const Color(0xff323232);
 }

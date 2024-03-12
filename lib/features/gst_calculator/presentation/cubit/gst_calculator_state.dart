@@ -28,4 +28,12 @@ class GstCalculatorLoadedState extends GstCalculatorState {
   List<Object?> get props => [inputString, random];
 }
 
-class GstCalculatorErrorState extends GstCalculatorState {}
+class GstCalculatorErrorState extends GstCalculatorState {
+  final AppErrorType appErrorType;
+  final String errorMessage;
+
+  const GstCalculatorErrorState({required this.appErrorType, required this.errorMessage});
+
+  @override
+  List<Object?> get props => [appErrorType, errorMessage];
+}

@@ -38,4 +38,12 @@ class TaxSlabLoadedState extends TaxSlabState {
   List<Object?> get props => [gstPlusSlabList, gstMinusSlabList, random];
 }
 
-class TaxSlabErrorState extends TaxSlabState {}
+class TaxSlabErrorState extends TaxSlabState {
+  final AppErrorType appErrorType;
+  final String errorMessage;
+
+  const TaxSlabErrorState({required this.appErrorType, required this.errorMessage});
+
+  @override
+  List<Object> get props => [appErrorType, errorMessage];
+}

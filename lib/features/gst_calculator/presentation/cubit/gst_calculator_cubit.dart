@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:eval_ex/expression.dart';
+import 'package:gst_calcuator/common/app_error.dart';
 import 'package:gst_calcuator/features/gst_calculator/data/models/data_history_model.dart';
 import 'package:gst_calcuator/global.dart';
 import 'package:intl/intl.dart';
@@ -25,13 +26,13 @@ class GstCalculatorCubit extends Cubit<double> {
   bool isGstPlus = false;
 
   Future<void> calculation({required String value}) async {
-    if (value == '<=') {
+    if (value == 'bs') {
       if (inputValue.isNotEmpty) {
         inputValue = inputValue.substring(0, inputValue.length - 1);
       }
       finalOutPut = 0;
       totalGst = 0;
-    } else if (value == 'AC') {
+    } else if (value == 'ac') {
       totalGst = 0;
       inputValue = '';
       finalOutPut = 0;
