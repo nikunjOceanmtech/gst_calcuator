@@ -5,6 +5,7 @@ import 'package:gst_calcuator/common/common_widget.dart';
 import 'package:gst_calcuator/common/custom_switch.dart';
 import 'package:gst_calcuator/di/get_it.dart';
 import 'package:gst_calcuator/features/menu_option/presentation/cubit/menu_option_cubit.dart';
+import 'package:gst_calcuator/global.dart';
 
 class BusinessCalculatorScreen extends StatefulWidget {
   const BusinessCalculatorScreen({super.key});
@@ -53,87 +54,17 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                 children: [
                   InkWell(
                     onTap: () => Navigator.pop(context),
-                    child: Row(
-                      children: [
-                        CommonWidget.commonText(text: 'GST Calculator'),
-                        const Spacer(),
-                        Container(
-                          height: 25,
-                          alignment: Alignment.center,
-                          child: CommonWidget.imageBuilder(
-                            imageUrl: 'assets/images/svg/forward_arrow.svg',
-                            height: 25,
-                            width: 25,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: headingView(imageUrl: 'assets/images/svg/GST.svg', lable: 'GST Calculator'),
                   ),
                   InkWell(
-                    onTap: () => Navigator.popAndPushNamed(context, '/money_cash_counter'),
-                    child: Row(
-                      children: [
-                        CommonWidget.commonText(text: 'Money Cash Counter'),
-                        const Spacer(),
-                        Container(
-                          height: 25,
-                          alignment: Alignment.center,
-                          child: CommonWidget.imageBuilder(
-                            imageUrl: 'assets/images/svg/forward_arrow.svg',
-                            height: 25,
-                            width: 25,
-                          ),
-                        ),
-                      ],
-                    ),
+                    onTap: () => Navigator.popAndPushNamed(context, RouteList.money_cash_counter_screen),
+                    child: headingView(imageUrl: 'assets/images/svg/money_cash.svg', lable: 'Money Cash Counter'),
                   ),
-                  Row(
-                    children: [
-                      CommonWidget.commonText(text: 'Loan Emi Calculator'),
-                      const Spacer(),
-                      Container(
-                        height: 25,
-                        alignment: Alignment.center,
-                        child: CommonWidget.imageBuilder(
-                          imageUrl: 'assets/images/svg/forward_arrow.svg',
-                          height: 25,
-                          width: 25,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      CommonWidget.commonText(text: 'Currency Converter'),
-                      const Spacer(),
-                      Container(
-                        height: 25,
-                        alignment: Alignment.center,
-                        child: CommonWidget.imageBuilder(
-                          imageUrl: 'assets/images/svg/forward_arrow.svg',
-                          height: 25,
-                          width: 25,
-                        ),
-                      ),
-                    ],
-                  ),
+                  headingView(imageUrl: 'assets/images/svg/loan_emi.svg', lable: 'Loan Emi Calculator'),
+                  headingView(imageUrl: 'assets/images/svg/currency.svg', lable: 'Currency Converter'),
                   InkWell(
-                    onTap: () => Navigator.popAndPushNamed(context, '/interest_calculator_screen'),
-                    child: Row(
-                      children: [
-                        CommonWidget.commonText(text: 'Interest Calculator'),
-                        const Spacer(),
-                        Container(
-                          height: 25,
-                          alignment: Alignment.center,
-                          child: CommonWidget.imageBuilder(
-                            imageUrl: 'assets/images/svg/forward_arrow.svg',
-                            height: 25,
-                            width: 25,
-                          ),
-                        ),
-                      ],
-                    ),
+                    onTap: () => Navigator.popAndPushNamed(context, RouteList.interest_calculator_screen),
+                    child: headingView(imageUrl: 'assets/images/svg/interest.svg', lable: 'Interest Calculator'),
                   ),
                   CommonWidget.commonText(
                     text: 'More',
@@ -162,7 +93,7 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
                     ],
                   ),
                   InkWell(
-                    onTap: () => Navigator.popAndPushNamed(context, '/tax_slab_screen'),
+                    onTap: () => Navigator.popAndPushNamed(context, RouteList.tax_slab_screen),
                     child: Row(
                       children: [
                         CommonWidget.commonText(text: 'Tax Slab'),
@@ -204,6 +135,30 @@ class BbusinesCcalculatorScreenState extends State<BusinessCalculatorScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Row headingView({required String imageUrl, required String lable}) {
+    return Row(
+      children: [
+        CommonWidget.imageBuilder(
+          imageUrl: imageUrl,
+          height: 25.h,
+          width: 25.w,
+        ),
+        SizedBox(width: 10.w),
+        CommonWidget.commonText(text: lable),
+        const Spacer(),
+        Container(
+          height: 25,
+          alignment: Alignment.center,
+          child: CommonWidget.imageBuilder(
+            imageUrl: 'assets/images/svg/forward_arrow.svg',
+            height: 25,
+            width: 25,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +20,6 @@ class TaxSlabCubit extends Cubit<TaxSlabState> {
   }
 
   void changeMinusData({required TaxSlabLoadedState state, required String value, required int index}) {
-    log("=========+$value");
     List<String> tempList = state.gstMinusSlabList;
     tempList[index] = value.replaceAll('-', '');
     emit(state.copyWith(gstMinusSlabList: tempList));
@@ -54,7 +51,7 @@ class TaxSlabCubit extends Cubit<TaxSlabState> {
       gstPlusSlabList = gstHistoryBox.get(HiveConstants.GST_PLUS_SLAB);
       gstMinusSlabList = gstHistoryBox.get(HiveConstants.GST_MINUS_SLAB);
 
-      Navigator.pushReplacementNamed(context, '/gst_cal');
+      Navigator.pushReplacementNamed(context, RouteList.gst_calculator_screen);
     }
   }
 }

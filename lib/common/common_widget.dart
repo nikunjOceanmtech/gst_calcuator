@@ -136,7 +136,7 @@ class CommonWidget {
           placeholderBuilder: (context) => SizedBox(
             height: height?.h,
             width: width?.w,
-            child: warningIcon(color: color, bgColor: Colors.transparent),
+            child: warningIcon(color: color, bgColor: AppColor.primary1Color),
           ),
         );
       } else {
@@ -215,7 +215,8 @@ class CommonWidget {
       color: bgColor,
       child: Center(
         child: SvgPicture.asset(
-          "assets/photos/svg/common/warning.svg",
+          // TODO: change To your Warning path...
+          "assets/images/svg/warning.svg",
           width: width ?? 32.w,
           height: height ?? 32.h,
           colorFilter: ColorFilter.mode(color ?? AppColor.primary1Color, BlendMode.srcIn),
