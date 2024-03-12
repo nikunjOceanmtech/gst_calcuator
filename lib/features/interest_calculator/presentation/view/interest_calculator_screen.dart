@@ -23,11 +23,18 @@ class _InterestCalculatorScreenState extends InterestCalculatorWidgte {
             backgroundColor: AppColor.whiteBackGroundColor,
             surfaceTintColor: AppColor.whiteBackGroundColor,
             bottom: TabBar(
-              onTap: (value) => interestCalculatorCubit.changeTab(
-                value: value,
-                state: (interestCalculatorCubit.state as InterestCalculatorLoadedState),
-              ),
+              onTap: (value) {
+                if (interestCalculatorCubit.state is InterestCalculatorLoadedState) {
+                  interestCalculatorCubit.changeTab(
+                    value: value,
+                    state: (interestCalculatorCubit.state as InterestCalculatorLoadedState),
+                  );
+                }
+              },
               physics: const NeverScrollableScrollPhysics(),
+              dividerColor: AppColor.primary4Color,
+              indicatorColor: AppColor.default1Color,
+              splashFactory: NoSplash.splashFactory,
               tabs: [
                 Tab(
                   child: Container(

@@ -27,7 +27,7 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
 
   PreferredSizeWidget appBarView({required BuildContext context}) {
     return AppBar(
-      backgroundColor: AppColor.whiteBackGroundColor,
+      backgroundColor: const Color(0xffF6F6F8),
       leading: InkWell(
         onTap: () => Navigator.pop(context),
         child: Container(
@@ -41,7 +41,7 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
         InkWell(
           onTap: () => showTopBottomSheetView(context: context, child: const CalcuationHistroryScreen()),
           child: Container(
-            height: 25,
+            height: 30,
             alignment: Alignment.center,
             child: CommonWidget.imageBuilder(imageUrl: 'assets/images/svg/history.svg', height: 25, width: 25),
           ),
@@ -108,6 +108,7 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(flex: 3, child: topView()),
+            const Divider(height: 1),
             Expanded(flex: 5, child: bottomButtonView()),
           ],
         );
@@ -126,6 +127,7 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
 
   Widget topView() {
     return CommonWidget.container(
+      color: Colors.transparent,
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: Column(
         children: [
@@ -296,9 +298,10 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
       child: CommonWidget.container(
         height: ScreenUtil().screenHeight * 0.55,
         width: ScreenUtil().screenWidth,
-        color: AppColor.greyColor,
+        color: AppColor.greyColor.withOpacity(0.2),
         child: Column(
           children: [
+            SizedBox(height: 10.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
