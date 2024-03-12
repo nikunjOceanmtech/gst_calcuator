@@ -209,7 +209,9 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
                 color: AppColor.default3Color,
               ),
               CommonWidget.commonText(
-                text: '+${gstCalculatorCubit.totalGst.toStringAsFixed(2)}',
+                text: gstCalculatorCubit.isGstPlus
+                    ? '+${gstCalculatorCubit.totalGst.toStringAsFixed(2)}'
+                    : '-${gstCalculatorCubit.totalGst.toStringAsFixed(2)}',
                 color: AppColor.default2Color,
                 fontSize: 23.sp,
               ),
@@ -221,9 +223,8 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
   }
 
   Widget finalOutPutView() {
-    return Visibility(
-      visible: gstCalculatorCubit.finalOutPut != 0,
-      child: Column(
+    if (gstCalculatorCubit.finalOutPut != 0) {
+      return Column(
         children: [
           const Divider(),
           Row(
@@ -242,11 +243,35 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
             ],
           ),
         ],
-      ),
-    );
+      );
+    } else if (gstCalculatorCubit.inputValue.isNotEmpty) {
+      return Column(
+        children: [
+          const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CommonWidget.commonText(text: 'Total', color: AppColor.primary1Color),
+              CommonWidget.commonText(
+                text: gstCalculatorCubit.totalGst != 0
+                    ? gstCalculatorCubit.isGstPlus
+                        ? (gstCalculatorCubit.totalGst + (double.tryParse(gstCalculatorCubit.inputValue) ?? 0))
+                            .toString()
+                        : ((double.tryParse(gstCalculatorCubit.inputValue) ?? 0) - gstCalculatorCubit.totalGst)
+                            .toString()
+                    : gstCalculatorCubit.finalOutPut.toString(),
+                color: AppColor.primary1Color,
+                fontSize: 28.sp,
+              ),
+            ],
+          ),
+        ],
+      );
+    }
+    return const SizedBox.shrink();
   }
 
-  Widget commonNumberButton({required String text, Color? bgColor, Color? textColor, double? fontSize}) {
+  Widget commonNumberButton({String? text, Color? bgColor, Color? textColor, double? fontSize, Widget? child}) {
     return Container(
       height: 60.h,
       width: 60.w,
@@ -255,12 +280,13 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
         color: bgColor ?? AppColor.whiteBackGroundColor,
       ),
       alignment: Alignment.center,
-      child: CommonWidget.commonText(
-        text: text,
-        color: textColor,
-        fontSize: fontSize,
-        fontWeight: FontWeight.bold,
-      ),
+      child: child ??
+          CommonWidget.commonText(
+            text: text ?? "",
+            color: textColor,
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+          ),
     );
   }
 
@@ -315,15 +341,28 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
                 calculatorFirstLine.length,
-                (index) => InkWell(
-                  onTap: () => gstCalculatorCubit.calculation(value: calculatorFirstLine[index]),
-                  child: commonNumberButton(
-                    text: calculatorFirstLine[index],
-                    bgColor: AppColor.whiteBackGroundColor,
-                    textColor: AppColor.default1Color,
-                    fontSize: 25.sp,
-                  ),
-                ),
+                (index) {
+                  if (calculatorFirstLine[index].isImageShow) {
+                    return InkWell(
+                      onTap: () => gstCalculatorCubit.calculation(value: calculatorFirstLine[index].value),
+                      child: commonNumberButton(
+                        child: CommonWidget.imageBuilder(
+                          imageUrl: calculatorFirstLine[index].imagePath,
+                          height: 25.h,
+                        ),
+                      ),
+                    );
+                  }
+                  return InkWell(
+                    onTap: () => gstCalculatorCubit.calculation(value: calculatorFirstLine[index].value),
+                    child: commonNumberButton(
+                      text: calculatorFirstLine[index].lable,
+                      bgColor: calculatorFirstLine[index].bgColor,
+                      textColor: calculatorFirstLine[index].textColor,
+                      fontSize: calculatorFirstLine[index].fontSize,
+                    ),
+                  );
+                },
               ),
             ),
             SizedBox(height: 10.h),
@@ -332,12 +371,12 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
               children: List.generate(
                 calculatorSecondLine.length,
                 (index) => InkWell(
-                  onTap: () => gstCalculatorCubit.calculation(value: calculatorSecondLine[index]),
+                  onTap: () => gstCalculatorCubit.calculation(value: calculatorSecondLine[index].value),
                   child: commonNumberButton(
-                    text: calculatorSecondLine[index],
-                    bgColor: AppColor.whiteBackGroundColor,
-                    textColor: calculatorSecondLine[index] == 'AC' ? AppColor.redTextColor : AppColor.default1Color,
-                    fontSize: 25.sp,
+                    text: calculatorSecondLine[index].lable,
+                    bgColor: calculatorSecondLine[index].bgColor,
+                    textColor: calculatorSecondLine[index].textColor,
+                    fontSize: calculatorSecondLine[index].fontSize,
                   ),
                 ),
               ),
@@ -348,12 +387,12 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
               children: List.generate(
                 calculatorThirdLine.length,
                 (index) => InkWell(
-                  onTap: () => gstCalculatorCubit.calculation(value: calculatorThirdLine[index]),
+                  onTap: () => gstCalculatorCubit.calculation(value: calculatorThirdLine[index].value),
                   child: commonNumberButton(
-                    text: calculatorThirdLine[index],
-                    bgColor: AppColor.whiteBackGroundColor,
-                    textColor: AppColor.default1Color,
-                    fontSize: 25.sp,
+                    text: calculatorThirdLine[index].lable,
+                    bgColor: calculatorThirdLine[index].bgColor,
+                    textColor: calculatorThirdLine[index].textColor,
+                    fontSize: calculatorThirdLine[index].fontSize,
                   ),
                 ),
               ),
@@ -362,15 +401,14 @@ abstract class GstCalculatorWidget extends State<GstCalculatorScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
-                calculatorForuthLine.length,
+                calculatorForuthLine1.length,
                 (index) => InkWell(
-                  onTap: () => gstCalculatorCubit.calculation(value: calculatorForuthLine[index]),
+                  onTap: () => gstCalculatorCubit.calculation(value: calculatorForuthLine1[index].lable),
                   child: commonNumberButton(
-                    text: calculatorForuthLine[index],
-                    bgColor:
-                        calculatorForuthLine[index] == '=' ? AppColor.primary1Color : AppColor.whiteBackGroundColor,
-                    textColor: calculatorForuthLine[index] == '=' ? AppColor.whiteTextColor : AppColor.default1Color,
-                    fontSize: calculatorForuthLine[index] == '=' ? 40.sp : 25.sp,
+                    text: calculatorForuthLine1[index].value,
+                    bgColor: calculatorForuthLine1[index].bgColor,
+                    textColor: calculatorForuthLine1[index].textColor,
+                    fontSize: calculatorForuthLine1[index].fontSize,
                   ),
                 ),
               ),

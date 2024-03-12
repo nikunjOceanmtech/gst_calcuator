@@ -26,13 +26,13 @@ class GstCalculatorCubit extends Cubit<double> {
   bool isGstPlus = false;
 
   Future<void> calculation({required String value}) async {
-    if (value == '<=') {
+    if (value == 'bs') {
       if (inputValue.isNotEmpty) {
         inputValue = inputValue.substring(0, inputValue.length - 1);
       }
       finalOutPut = 0;
       totalGst = 0;
-    } else if (value == 'AC') {
+    } else if (value == 'ac') {
       totalGst = 0;
       inputValue = '';
       finalOutPut = 0;
